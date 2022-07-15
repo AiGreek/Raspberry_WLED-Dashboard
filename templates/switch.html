@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+{% block title %}Switch{% endblock %}
+{% block content %}
+
+<div class="row" style="text-align:center;">
+  <div class="col-sm-6">
+    <table class="table">
+      {% for data in B_Lights %}
+      <tr>
+        <td>
+          {% if B_Lights[data].state == 'on' %}
+          <i class="fa {{B_Lights[data]['icon']}} fa-2x" style="color:#5CB85C"></i>
+          {% else %}
+          <i class="fa {{B_Lights[data]['icon']}} fa-2x" style="color:#d9534f"></i>
+          {% endif %}
+        </td>
+        <td><h6>{{B_Lights[data]['name']}}</h6></td>
+        <td>
+          {% if B_Lights[data].state == 'on' %}
+          <a href="/switch/b/status/{{data}}/off"  class="btn btn-sm btn-danger btn-lg btn3d">Off</a>
+          {% else %}
+          <a href="/switch/b/status/{{data}}/on"  class="btn btn-sm btn-success btn-lg btn3d">On</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="col-sm-6">
+    <table class="table">
+      {% for data in S_Lights %}
+      <tr>
+        <td>
+          {% if S_Lights[data].state == 'on' %}
+          <i class="fa {{S_Lights[data]['icon']}} fa-2x" style="color:#5CB85C"></i>
+          {% else %}
+          <i class="fa {{S_Lights[data]['icon']}} fa-2x" style="color:#d9534f"></i>
+          {% endif %}
+        </td>
+        <td><h6>{{S_Lights[data]['name']}}</h6></td>
+        <td>
+          {% if S_Lights[data].state == 'on' %}
+          <a href="/switch/s/status/{{data}}/off"  class="btn btn-sm btn-danger btn3d">Off</a>
+          {% else %}
+          <a href="/switch/s/status/{{data}}/on"  class="btn btn-sm btn-success btn3d">On</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <table class="table">
+      {% for data in R_Lights %}
+      <tr>
+        <td>
+          {% if R_Lights[data].state == 'on' %}
+          <i class="fa {{R_Lights[data]['icon']}} fa-2x" style="color:#5CB85C"></i>
+          {% else %}
+          <i class="fa {{R_Lights[data]['icon']}} fa-2x" style="color:#d9534f"></i>
+          {% endif %}
+        </td>
+        <td><h7>{{R_Lights[data]['name']}}</h7></td>
+        <td>
+          {% if R_Lights[data].state == 'on' %}
+          <a href="/switch/rgb/status/{{data}}/off"  class="btn btn-sm btn-danger btn3d">Off</a>
+          {% else %}
+          <a href="/switch/rgb/status/{{data}}/on"  class="btn btn-sm btn-success btn3d">On</a>
+          {% endif %}
+			<button type="button" class="btn btn-sm btn-primary btn3d" data-bs-toggle="modal" data-bs-target="#effect-{{data}}">
+			  Effects
+			</button>
+        </td>
+      </tr>
+
+
+<!-- Modal -->
+<div class="modal fade" id="effect-{{data}}" tabindex="-1" aria-labelledby="effect-{{data}}" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{R_Lights[data]['name']}}'s Effects</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+		<div class="container-fluid">
+		  
+		  <div class="row">
+			<div class="col-sm-4">
+			  <ul class="list-group" style="text-align:left;">
+				<li class="list-group-item"><a href="/switch/rgb/effect/{{data}}/1"  class="btn btn-sm btn-warning">1</a> : Rainbow</li>
+				<li class="list-group-item"><a href="/switch/rgb/effect/{{data}}/2"  class="btn btn-sm btn-info">2</a> : Candle</li>
+				<li class="list-group-item"><a href="/switch/rgb/effect/{{data}}/3"  class="btn btn-sm btn-primary">3</a> : ColorLoop</li>
+			  </ul>
+			</div>
+			<div class="col-sm-4">
+			  <ul class="list-group" style="text-align:left;">
+				<li class="list-group-item"><a href="/switch/rgb/effect/{{data}}/5"  class="btn btn-sm btn-success">5</a> : Pacifica</li>
+				<li class="list-group-item"><a href="/switch/rgb/effect/{{data}}/6"  class="btn btn-sm btn-warning">6</a> : Pride 2015</li>
+				<li class="list-group-item"><a href="/switch/rgb/effect/{{data}}/7"  class="btn btn-sm btn-info">7</a> : Random Color</li>
+			  </ul>
+			</div>
+			<div class="col-sm-4">
+			  <ul class="list-group" style="text-align:left;">
+				<li class="list-group-item"><a href="/switch/rgb/effect/{{data}}/11"  class="btn btn-sm btn-warning">9</a> : Wipe</li>
+				<li class="list-group-item"><a href="/switch/rgb/effect/{{data}}/9"  class="btn btn-sm btn-danger">10</a> : Sinelon</li>
+				<li class="list-group-item"><a href="/switch/rgb/effect/{{data}}/10"  class="btn btn-sm btn-success">11</a> : Sunrise</li>
+			  </ul>
+			</div>
+		  </div>
+		  
+		  <div class="row">
+			<div class="col-sm-6">
+				<h4>Brightness</h4>
+				<div class="btn-group" role="group" aria-label="brightness" style="text-align:center;">
+				  <a href="/switch/rgb/brightness/{{data}}/12" type="button" class="btn btn-sm btn-{% if R_Lights[data].brightness == '12' %} disabled {% else %}primary{% endif %}">12%</a>
+				  <a href="/switch/rgb/brightness/{{data}}/25" type="button" class="btn btn-sm btn-{% if R_Lights[data].brightness == '25' %} disabled {% else %}primary{% endif %}">25%</a>
+				  <a href="/switch/rgb/brightness/{{data}}/50" type="button" class="btn btn-sm btn-{% if R_Lights[data].brightness == '50' %} disabled {% else %}primary{% endif %}">50%</a>
+				  <a href="/switch/rgb/brightness/{{data}}/75" type="button" class="btn btn-sm btn-{% if R_Lights[data].brightness == '75' %} disabled {% else %}primary{% endif %}">75%</a>
+				  <a href="/switch/rgb/brightness/{{data}}/100" type="button" class="btn btn-sm btn-{% if R_Lights[data].brightness == '100' %} disabled {% else %}primary{% endif %}">100%</a>
+				</div>
+			</div>
+			<div class="col-sm-6">
+			  <h4>Speed</h4>
+				<div class="btn-group" role="group" aria-label="speed" style="text-align:center;">
+				  <a href="/switch/rgb/speed/{{data}}/25" type="button" class="btn btn-sm btn-{% if R_Lights[data].speed == '25' %} disabled {% else %}primary{% endif %}">25%</a>
+				  <a href="/switch/rgb/speed/{{data}}/50" type="button" class="btn btn-sm btn-{% if R_Lights[data].speed == '50' %} disabled {% else %}primary{% endif %}">50%</a>
+				  <a href="/switch/rgb/speed/{{data}}/75" type="button" class="btn btn-sm btn-{% if R_Lights[data].speed == '75' %} disabled {% else %}primary{% endif %}">75%</a>
+				  <a href="/switch/rgb/speed/{{data}}/100" type="button" class="btn btn-sm btn-{% if R_Lights[data].speed == '100' %} disabled {% else %}primary{% endif %}">100%</a>
+				</div>
+			</div>
+		  </div>
+		  
+      </div>
+	</div>
+    </div>
+  </div>
+</div>
+      {% endfor %}
+    </table>
+  </div>
+    <!-- Modal -->
+</div>
+
+{% endblock %}

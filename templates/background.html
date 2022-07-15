@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block title %}Background Color{% endblock %}
+{% block content %}
+{% if message %}
+<div class="alert alert-success alert-dismissible" role="alert">
+  <a href="#" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+   message 
+</div>
+{% endif %}
+
+
+    <table class="table">
+
+      <tr>
+        <td>
+		
+        </td>
+        <td><h6>Led Panel</h6></td>
+        <td>
+			<a href="/background/b/status//off"  class="btn btn-sm btn-danger btn-lg btn3d">Power Off</a>
+			{% for data in SQUARE_Lights %}
+				<button type="button" class="btn btn-sm btn-primary btn3d" data-bs-toggle="modal" data-bs-target="#effect-{{data}}">{{SQUARE_Lights[data]['name']}}</button>
+			{% endfor %}
+        </td>
+      </tr>
+
+    </table>
+
+{% for data in SQUARE_Lights %}
+<div class="modal fade" id="effect-{{data}}" tabindex="-1" aria-labelledby="effect-{{data}}" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{SQUARE_Lights[data]['name']}}'s Color</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+		<div class="container-fluid">
+		  
+		  <div class="row">
+			<div class="col-sm-4">
+			  <ul class="list-group" style="text-align:left;">
+				<li class="list-group-item"><a href="/background/color_q/{{data}}/1"  class="btn btn-sm" style="background-color:#FD004C"><i class="fas fa-fill-drip fa-2x"></i></a> : #FD004C</li>
+				<li class="list-group-item"><a href="/background/color_q/{{data}}/2"  class="btn btn-sm" style="background-color:#FE9000"><i class="fas fa-fill-drip fa-2x"></i></a> : #FE9000</li>
+			  </ul>
+			</div>
+			<div class="col-sm-4">
+			  <ul class="list-group" style="text-align:left;">
+				<li class="list-group-item"><a href="/background/color_q/{{data}}/3"  class="btn btn-sm" style="background-color:#FFF020"><i class="fas fa-fill-drip fa-2x"></i></a> : #FFF020</li>
+				<li class="list-group-item"><a href="/background/color_q/{{data}}/4"  class="btn btn-sm" style="background-color:#3EDF4D"><i class="fas fa-fill-drip fa-2x"></i></a> : #3EDF4D</li>
+			  </ul>
+			</div>
+			<div class="col-sm-4">
+			  <ul class="list-group" style="text-align:left;">
+				<li class="list-group-item"><a href="/background/color_q/{{data}}/5"  class="btn btn-sm" style="background-color:#3363FF"><i class="fas fa-fill-drip fa-2x"></i></a> : #3363FF</li>
+				<li class="list-group-item"><a href="/background/color_q/{{data}}/6"  class="btn btn-sm" style="background-color:#B102B7"><i class="fas fa-fill-drip fa-2x"></i></a> : #B102B7</li>
+			  </ul>
+			</div>
+		  </div>	  
+      </div>
+	</div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+
+{% endblock %}

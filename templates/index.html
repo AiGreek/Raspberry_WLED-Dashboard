@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ super() }}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+    <script src="{{ url_for('static', filename='js/binary_clock.js') }}"></script>
+	<style>
+		.dot, .dotfilled, .blank{
+		  position:relative;
+		  width:40px;
+		  height:40px;
+		  margin:10px;
+		  background-repeat:no-repeat;
+		}
+	</style>
+	
+{% endblock %}
+
+{% block content %}
+<div id="bincont"></div>
+
+{% endblock %}
